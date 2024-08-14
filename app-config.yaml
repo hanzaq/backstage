@@ -198,6 +198,10 @@ allure:
   baseUrl: http://localhost:5050/allure-docker-service
 
 integrations:
+  bitbucketServer:
+    - host: bitbucket.staples.com
+      apiBaseUrl: https://bitbucket.staples.com/rest/api/1.0
+      token: BBDC-MTkyNzk3OTI2NTMyOrJdDqf6vUhUIadcRMdH9Bidr95S
   github:
     - host: github.com
       token: ${GITHUB_TOKEN}
@@ -245,6 +249,18 @@ catalog:
         - Domain
         - Location
   providers:
+    bitbucketServer:
+      yourProviderId: # identifies your ingested dataset
+        host: 'bitbucket.staples.com'
+        catalogPath: /catalog-info.yaml # default value
+        filters: # optional
+          projectKey: '^CICD$' # optional; RegExp
+          skipArchivedRepos: false # optional; boolean
+        schedule: # same options as in TaskScheduleDefinition
+          # supports cron, ISO duration, "human duration" as used in code
+          frequency: { minutes: 30 }
+          # supports ISO duration, "human duration" as used in code
+          timeout: { minutes: 3 }
     backstageOpenapi:
       plugins:
         - catalog
